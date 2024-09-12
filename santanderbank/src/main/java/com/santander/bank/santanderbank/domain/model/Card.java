@@ -1,18 +1,19 @@
 package com.santander.bank.santanderbank.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-@Entity
-public class Card {
+import java.math.BigDecimal;
+
+@Entity(name = "tb_card")
+public class Card extends BaseItem{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String number;
-    private float limit;
+    @Column(name = "available_limit",scale = 13, precision = 2)
+    private BigDecimal limit;
 
     public Long getId() {
         return id;
@@ -30,11 +31,11 @@ public class Card {
         this.number = number;
     }
 
-    public float getLimit() {
+    public BigDecimal getLimit() {
         return limit;
     }
 
-    public void setLimit(float limit) {
+    public void setLimit(BigDecimal limit) {
         this.limit = limit;
     }
 }
